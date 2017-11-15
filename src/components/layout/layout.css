@@ -1,0 +1,135 @@
+.cp {
+  cursor: pointer;
+}
+
+.ma {
+  margin: auto;
+}
+
+.mla {
+  margin-left: auto;
+}
+
+.mra {
+  margin-right: auto;
+}
+
+.mb50 {
+  margin-bottom: 50px;
+}
+
+.mt50 {
+  margin-top: 50px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+.fb {
+  display: flex;
+}
+
+.f1 {
+  flex: 1;
+}
+
+.f2 {
+  flex: 2;
+}
+
+.fdc {
+  flex-direction: column;
+}
+
+.jcc {
+  justify-content: center;
+}
+
+.jcsa {
+  justify-content: space-around;
+}
+
+.jcsb {
+  justify-content: space-between;
+}
+
+.aic {
+  align-items: center;
+}
+
+.asc {
+  align-self: center;
+}
+
+.fww {
+  flex-wrap: wrap;
+}
+
+.fs46 {
+  font-size: 46px;
+}
+
+.fs30 {
+  font-size: 30px;
+}
+
+.fs20 {
+  font-size: 20px;
+}
+
+.fs10 {
+  font-size: 10px;
+}
+
+.db {
+  display: block;
+}
+
+.p10 {
+  padding: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.br1 {
+  border-radius: 1px;
+}
+
+.br2 {
+  border-radius: 2px;
+}
+
+.br5 {
+  border-radius: 5px;
+}
+
+.mw50 {
+  max-width: 50px;
+}
+
+.mw100 {
+  max-width: 100px;
+}
+
+.mw250 {
+  max-width: 250px;
+}
+
+.lh50 {
+  line-height: 50px;
+}
+
+.tac {
+  text-align: center;
+}
+
+.tal {
+  text-align: left;
+}
