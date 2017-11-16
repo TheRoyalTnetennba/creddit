@@ -1,0 +1,19 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    font-style: normal;
+    min-width: 160px;
+    font-family: inherit;
+    padding: 0px 0px;
+    line-height: 0px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

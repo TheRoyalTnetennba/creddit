@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import configureStore from './store/store';
+import store from './store/store';
 
-ReactDOM.render(<App store={ configureStore() }/>, document.getElementById('root'));
+ReactDOM.render(<App store={ store }/>, document.getElementById('root'));
 registerServiceWorker();
