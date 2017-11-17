@@ -3,61 +3,81 @@ import { connect } from 'react-redux';
 
 import './selector.css'
 import Layout from '../../layout/layout';
-import { fetchSearchResults } from '../../../actions/subreddit_actions';
+import { fetchSearchResults, clearResults, unsubscribe } from '../../../actions/subreddit_actions';
 
 class Selector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subreddits: ['News', 'Funny', 'Gifs'],
+      subscribedSubs: [],
       newSub: '',
-      results: [],
+      searchResults: [],
     };
   }
 
   componentWillMount() {
-    this.setState({ subreddits: })
+    this.setState({ subscribedSubs: this.props.subreddits.subscribedSubs })
   }
 
-  handleAdd(el) {
-    let newSubs = this.state.subreddits
-    newSubs.push(el);
-    this.setState({ 
-      subreddits: newSubs,
-      newSub: '',
+  componentWillReceiveProps(newProps) {
+    console.log('newProps', newProps);
+    this.setState({
+      subscribedSubs: newProps.subreddits.subscribedSubs,
+      searchResults: newProps.subreddits.searchResults,
     });
   }
 
+  handleAdd(el) {
+    let newSubs = this.state.subscribedSubs
+    newSubs.push(el);
+    this.setState({ 
+      subscribedSubs: newSubs,
+      newSub: '',
+      searchResults: [],
+    });
+    this.props.clearResults();
+  }
+
   handleDelete(el) {
-    this.setState({ subreddits: this.state.subreddits.filter(i => i !== el) });
+    console.log('deleting', el)
+    this.props.unsubscribe(el);
   }
 
   search(query) {
-    this.props.fetchSearchResults(query);
+    if (query.length === 0) {
+      this.props.clearResults();
+    } else {
+      this.props.fetchSearchResults(query);
+    }
   }
 
   handleInput(property) {
-    return e => this.setState({ [property]: e.currentTarget.value });
+    return e => this.setState({ [property]: e.currentTarget.value }, () => this.search(this.state.newSub));
   }
 
   render() {
     return (
       <section className="dropdown">
-        <span className="fs30 cp">Subreddits <i class="fa fa-caret-down black fs25" aria-hidden="true" /></span>
+        <span className="fs30 cp">Subreddits <i className="fa fa-caret-down black fs25" aria-hidden="true" /></span>
           <div className="dropdown-content">
             <div className="fb jcsb aic">
               <input 
-                type="text" 
+                type="text"
                 className="p10 fs30 fb f1 mw150 mt23" 
                 value={this.state.newSub} 
                 placeholder="Add New"
                 onChange={this.handleInput('newSub')}/>
-              <i class="fa fa-plus blue fs20 p10 cp ml10 mt23" aria-hidden="true" onClick={() => this.handleAdd(this.state.newSub)} />
+              <i className="fa fa-search yellow fs20 cp ml10 mt23" aria-hidden="true"  />
             </div>
-            {this.state.subreddits.map(el => 
-            <div className="fb jcsb aic">
-              <p className="fs30 f1 ml10">{el}</p>
-              <i class="fa fa-times red fs20 mr10 cp" aria-hidden="true" onClick={() => this.handleDelete(el)} />
+            {this.state.searchResults.map(el => 
+            <div className="fb jcsb aic" key={`${el.id}`}>
+              <p className="fs30 f1 ml10">{el.name}</p>
+              <i className="fa fa-plus blue fs20 ml10 cp" aria-hidden="true" onClick={() => this.handleAdd(el)} />
+            </div>)}
+            {this.state.subscribedSubs.map(el => 
+            <div className="fb jcsb aic" key={`${el.id}`}>
+              <p className="fs30 f1 ml10">{el.name}</p>
+              <i className="fa fa-times red fs20 ml10 cp" aria-hidden="true" onClick={() => this.handleDelete(el)} />
             </div>)}
           </div>
       </section>
@@ -72,6 +92,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchSearchResults: query => dispatch(fetchSearchResults(query)),
+  clearResults: () => dispatch(clearResults()),
+  unsubscribe: unsubscribed => dispatch(unsubscribe(unsubscribed)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Selector);

@@ -15,7 +15,7 @@ const reducer = storage.reducer(combineReducers({
 
 const middleware = storage.createMiddleware(engine);
  
-const createStoreWithMiddleware = applyMiddleware(middleware)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, middleware)(createStore);
 
 const store = createStoreWithMiddleware(reducer);
 
