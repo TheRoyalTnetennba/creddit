@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './selector.css'
 import Layout from '../../layout/layout';
-import { fetchSearchResults, clearResults, unsubscribe } from '../../../actions/subreddit_actions';
+import { fetchSearchResults, clearResults, unsubscribe, receiveSubreddits } from '../../../actions/subreddit_actions';
 
 class Selector extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class Selector extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('newProps', newProps);
     this.setState({
       subscribedSubs: newProps.subreddits.subscribedSubs,
       searchResults: newProps.subreddits.searchResults,
@@ -28,18 +27,11 @@ class Selector extends Component {
   }
 
   handleAdd(el) {
-    let newSubs = this.state.subscribedSubs
-    newSubs.push(el);
-    this.setState({ 
-      subscribedSubs: newSubs,
-      newSub: '',
-      searchResults: [],
-    });
+    this.props.receiveSubreddits(this.state.subscribedSubs.concat([el]))
     this.props.clearResults();
   }
 
   handleDelete(el) {
-    console.log('deleting', el)
     this.props.unsubscribe(el);
   }
 
@@ -59,25 +51,25 @@ class Selector extends Component {
     return (
       <section className="dropdown">
         <span className="fs30 cp">Subreddits <i className="fa fa-caret-down black fs25" aria-hidden="true" /></span>
-          <div className="dropdown-content">
+          <div className="dropdown-content white-b">
             <div className="fb jcsb aic">
               <input 
                 type="text"
-                className="p10 fs30 fb f1 mw150 mt23" 
+                className="p10 ml10 fs30 fb f1 mw150 mt23" 
                 value={this.state.newSub} 
                 placeholder="Add New"
                 onChange={this.handleInput('newSub')}/>
-              <i className="fa fa-search yellow fs20 cp ml10 mt23" aria-hidden="true"  />
+              <i className="fa fa-search yellow fs20 cp ml20 mt23 pr40" aria-hidden="true"  />
             </div>
             {this.state.searchResults.map(el => 
             <div className="fb jcsb aic" key={`${el.id}`}>
               <p className="fs30 f1 ml10">{el.name}</p>
-              <i className="fa fa-plus blue fs20 ml10 cp" aria-hidden="true" onClick={() => this.handleAdd(el)} />
+              <i className="fa fa-plus blue fs20 ml20 cp pr40" aria-hidden="true" onClick={() => this.handleAdd(el)} />
             </div>)}
             {this.state.subscribedSubs.map(el => 
             <div className="fb jcsb aic" key={`${el.id}`}>
               <p className="fs30 f1 ml10">{el.name}</p>
-              <i className="fa fa-times red fs20 ml10 cp" aria-hidden="true" onClick={() => this.handleDelete(el)} />
+              <i className="fa fa-times red fs20 ml20 cp pr40" aria-hidden="true" onClick={() => this.handleDelete(el)} />
             </div>)}
           </div>
       </section>
@@ -94,6 +86,7 @@ const mapDispatchToProps = dispatch => ({
   fetchSearchResults: query => dispatch(fetchSearchResults(query)),
   clearResults: () => dispatch(clearResults()),
   unsubscribe: unsubscribed => dispatch(unsubscribe(unsubscribed)),
+  receiveSubreddits: subscribedSubs => dispatch(receiveSubreddits(subscribedSubs)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Selector);

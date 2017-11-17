@@ -6,9 +6,9 @@ export const REMOVE_SUBREDDIT = 'REMOVE_SUBREDDIT';
 export const CLEAR_RESULTS = 'CLEAR_RESULTS';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
-export const receiveSubs = subs => ({
+export const receiveSubreddits = subscribedSubs => ({
   type: RECEIVE_SUBREDDITS,
-  subscribedSubs: subs,
+  subscribedSubs,
 })
 
 export const receiveResults = results => ({

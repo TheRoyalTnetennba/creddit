@@ -10,11 +10,12 @@ const defaultState = {
     tagline: "All news, US and international.",
     url: "/r/news/",
   }],
+  errors: [],
 }
 
 const SubredditsReducer = (state = defaultState, action) => {
   Object.freeze(state);
-  let newState;
+  let newState = merge({}, state);
   switch (action.type) {
     case RECEIVE_RESULTS:
       let results = [];
@@ -32,21 +33,21 @@ const SubredditsReducer = (state = defaultState, action) => {
           return true;
         }
       });
-      newState = merge({}, state);
       newState.searchResults = results;
       return newState;
+    case RECEIVE_SUBREDDITS:
+      newState.subscribedSubs = action.subscribedSubs;
+      return newState;
     case REMOVE_SUBREDDIT:
-      newState = merge({}, state);
       newState.subscribedSubs = newState.subscribedSubs.filter(sub =>
         sub.id !== action.unsubscribed.id
       );
       return newState;
     case CLEAR_RESULTS:
-      newState = merge({}, state);
       newState.searchResults = [];
       return newState;
     case RECEIVE_ERRORS:
-      const errors = action.errors;
+      newState.errors = action.errors;
     default:
       return state;
   }

@@ -9,11 +9,14 @@
     font-style: normal;
     min-width: 160px;
     font-family: inherit;
-    padding: 0px 0px;
+    padding: 0px 0px 10px 10px;
     line-height: 0px;
-    z-index: 1;
+    z-index: 999;
+    background-color: #F1F1F1;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    background-color: #F1F1F1;
+    border-top: 22px solid #FEFEFE;
 }

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import './navigation.css';
@@ -9,9 +7,6 @@ import Selector from '../../feed/subreddit/selector';
 class Navigation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: '',
-    }
   }
 
   goHome() {
@@ -23,7 +18,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <nav className="white-b">
+      <nav className="white-b mb50">
         <div className="fb">
           <div className="fb cp" onClick={() => this.goHome()}>
             <h1 className="red">reddit</h1>
@@ -37,11 +32,5 @@ class Navigation extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-});
-
-const mapDispatchToProps = dispatch => ({
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navigation));
+export default withRouter(Navigation);
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { SocialIcon } from 'react-social-icons';
 import './footer.css';
 
@@ -25,11 +24,4 @@ class Footer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  state,
-});
-
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default Footer;
