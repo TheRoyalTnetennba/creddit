@@ -2,7 +2,6 @@
 
 [Live link][Live]
 
-- [ ] View at
 - [ ] Install with yarn install.
 - [ ] Run with yarn start.
 
