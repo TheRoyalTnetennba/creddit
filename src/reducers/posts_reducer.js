@@ -31,10 +31,10 @@ const PostsReducer = (state = defaultState, action) => {
           newState.posts.push(post);
         }
       });
-      console.log('newState', newState)
       return newState;
     case CLEAR_POSTS:
-      newState = [];
+      newState.posts = [];
+      console.log(newState);
       return newState;
     case RECEIVE_ERRORS:
       newState.errors = action.errors;

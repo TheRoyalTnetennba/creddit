@@ -5,7 +5,7 @@ import { RECEIVE_SUBREDDITS, REMOVE_SUBREDDIT, RECEIVE_RESULTS, CLEAR_RESULTS, R
 const defaultState = {
   searchResults: [],
   subscribedSubs: [{
-    id: "2qh3l",
+    id: "t5_2qh3l",
     name: "news",
     tagline: "All news, US and international.",
     url: "/r/news/",
@@ -24,7 +24,7 @@ const SubredditsReducer = (state = defaultState, action) => {
           url: child.data.url,
           name: child.data.display_name,
           tagline: child.data.title,
-          id: child.data.id,
+          id: child.data.name,
         };
         if (!state.subscribedSubs.some(i => i.id == result.id)) {
           results.push(result);

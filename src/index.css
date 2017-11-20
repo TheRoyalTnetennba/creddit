@@ -1,8 +1,12 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   color: #3B3F42;
+}
+
+.App {
+  /*min-height: 100%;*/
 }
 
  *:focus {

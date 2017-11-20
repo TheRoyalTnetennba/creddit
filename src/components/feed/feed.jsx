@@ -17,7 +17,7 @@ class Feed extends Component {
   }
 
   componentWillMount() {
-    window.addEventListener('scroll', () => this.onScroll, false);
+    window.addEventListener('scroll', () => this.onScroll(), false);
     this.updateFeed();
   }
 
@@ -42,10 +42,11 @@ class Feed extends Component {
       }
     });
     if (update) {
+      console.log('should update here', newProps)
       this.setState({ 
         posts: newProps.posts.posts,
         subscribedSubs: newProps.subreddits.subscribedSubs,
-      }, () => this.updateFeed());
+      }, () => this.refreshPosts());
     } else {
       this.setState({
         posts: newProps.posts.posts,
@@ -54,27 +55,47 @@ class Feed extends Component {
     }
   }
 
+  refreshPosts() {
+    this.props.clearPosts();
+    this.updateFeed();
+  }
+
+  incrementPage() {
+    let lastPosts = {}
+    this.state.posts.forEach(post => {
+      lastPosts[post.subredditID] = post.name;
+    });
+    this.setState({ page: this.state.page + 1 }, () => this.updateFeed(lastPosts));
+  }
+
   onScroll() {
     if (
-      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) &&
-      this.props.list.length
+      (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 400) &&
+      this.state.posts.length
     ) {
-      // get moar posts
-      // this.props.onPaginatedSearch();
+      this.incrementPage();
+    } 
+  }
+
+  updateFeed(afters = false) {
+    if (afters) {
+      this.state.subscribedSubs.forEach(sub => {
+        let after = afters[sub.id];
+        this.props.fetchSubreddit(sub.url, after);
+      });
+    } else {
+      this.state.subscribedSubs.forEach(sub => {
+        this.props.fetchSubreddit(sub.url)
+      });
     }
   }
 
-  updateFeed() {
-    this.state.subscribedSubs.forEach(sub => {
-      this.props.fetchSubreddit(sub.url)
-    });
-  }
-
   render() {
-    console.log('state', this.state);
     return (
       <Layout>
-        {this.state.posts.map(e => <Post key={e.id} post={e} />)}
+        <div className="mh697">
+          {this.state.posts.map(e => <Post key={e.id} post={e} />)}
+        </div>
       </Layout>
     );
   }
@@ -87,6 +108,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchSubreddit: (url, after = false) => dispatch(fetchSubreddit(url, after)),
+  clearPosts: () => dispatch(clearPosts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

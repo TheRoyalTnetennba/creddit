@@ -2,7 +2,8 @@ footer {
     bottom: 0;
     min-height: 100px;
     left: 0;
-    position: relative;
+/*    position: relative;*/
+    margin-top: 0px;
     width: 100%;
     padding: 20px 0 30px 0;
 }
