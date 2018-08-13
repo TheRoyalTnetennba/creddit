@@ -6,60 +6,9 @@ import (
 )
 
 type Subreddit struct {
-	HideAds                   bool
-	BannerImg                 string
-	SubmitTextHTML            string
-	UserFlairPosition         string
-	UserFlairEnabledInSr      bool
-	CommunityIcon             string
-	BannerBackgroundImage     string
-	OriginalContentTagEnabled bool
-	WikiEnabled               bool
-	ShowMedia                 bool
-	BannerBackgroundColor     string
-	DisplayNamePrefixed       string
-	UserFlairType             string
-	DisplayName               string
-	DescriptionHTML           string
-	Title                     string
-	CollapseDeletedComments   bool
-	ID                        string
-	PublicDescription         string
-	ShowMediaPreview          bool
-	Over18                    bool
-	PublicDescriptionHTML     string
-	Created                   float64
-	AllowVideos               bool
-	SpoilersEnabled           bool
-	PrimaryColor              string
-	AudienceTarget            string
-	AllOriginalContent        bool
-	IconImg                   string
-	Description               string
-	CanAssignLinkFlair        bool
-	SubmitText                string
-	PublicTraffic             bool
-	Subscribers               int
-	LinkFlairPosition         string
-	Lang                      string
-	HasMenuWidget             bool
-	KeyColor                  string
-	Name                      string
-	CanAssignUserFlair        bool
-	AllowVideogifs            bool
-	URL                       string
-	Quarantine                bool
-	CreatedUtc                float64
-	EmojisEnabled             bool
-	AllowDiscovery            bool
-	AccountsActiveIsFuzzed    bool
-	UserSrThemeEnabled        bool
-	LinkFlairEnabled          bool
-	AllowImages               bool
-	VideostreamLinksCount     int
-	CommentScoreHideMins      int
-	SubredditType             string
-	SubmissionType            string
+	DisplayName string
+	CreatedUtc  float64
+	Over18      bool
 }
 
 func Load() map[string]Subreddit {
